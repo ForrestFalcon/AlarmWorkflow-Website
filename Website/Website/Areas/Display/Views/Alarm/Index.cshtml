@@ -5,10 +5,6 @@
     var config = AlarmWorkflow.Website.Reports.Areas.Display.Models.WebsiteConfiguration.Instance;
 }
 
-<!-- Stylesheets -->
-<link rel="stylesheet" href="@Styles.Url("~/Content/app/area-alarm-index.css")" />
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-
 <!-- Page contents -->
 <!-- Pane initially shown -->
 <div id="paneLoading">
@@ -18,36 +14,13 @@
 <div id="paneError">
     <span>Ein Fehler ist aufgetreten.<br /> Bitte sehen Sie in den Serverlogs nach.</span>
 </div>
-<!-- Pane to be displayed in case of no operation and no error-->
-<div id="paneIdle">
-    <span>Es liegt kein Einsatz vor.</span>
-</div>
 <!-- Pane to be displayed otherwise -->
 <div id="paneOperation">
-    <table>
-        <tr style="height: 17%;">
-            <td class="alarm"><span class="alarm" id="opicture"></span></td>
-            <td class="alarm"><span class="alarm" id="okeywords"></span></td>
-        </tr>
-        <tr style="height: 25%;">
-            <td class="alarm"><span class="alarm" id="oaddress"></span></td>
-            <td class="alarm"><span class="alarm" id="ocomment"></span></td>
-        </tr>
-        <tr style="height: 40%;">
-            <td class="alarm opcolumn">
-                <div class="opcell" id="ogoogle"></div>
-            </td>
-            <td class="alarm opcolumn">
-                <div class="opcell" id="oosm"></div>
-            </td>
-        </tr>
-        <tr style="height: 18%;">
-            <td class="alarm" colspan="2" id="orsc"></td>
-        </tr>
-    </table>
-    <div>
-        <a href="javascript:void(0);" onclick="reset(); return false;">Einsatz erledigt!</a>
-    </div>
+    @Html.Partial("~/Areas/Display/Views/Alarm/PartialAlarm.cshtml")
+</div>
+<!-- Pane to be displayed in case of no operation and no error-->
+<div id="paneIdle">
+    @Html.Partial("~/Areas/Display/Views/Alarm/PartialIdle.cshtml")
 </div>
 
 @section scripts {
@@ -71,6 +44,8 @@
             zoomLevel: @((config.GoogleZoomLevel/100.0).ToString().Replace(',','.')),
             zoomLevelOSM: @(config.OSMZoomLevel),
         };
+
+        console.log(config);
 
     </script>
 

@@ -5,17 +5,23 @@
     <title>@ViewBag.Title - AlarmWorkflow.Website.Reports</title>
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    @Styles.Render("~/Content/css")
-    <link rel="stylesheet" href="@Styles.Url("~/Content/app/area-alarm-indexlayout.css")" />
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <!-- @Styles.Render("~/Content/css") -->
+    <!-- <link rel="stylesheet" href="@Styles.Url("~/Content/app/area-alarm-indexlayout.css")" /> -->
 
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="@Styles.Url("~/Content/app/area-alarm-bootstrap.css")" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+
+    <!-- @Scripts.Render("~/bundles/modernizr") -->
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/alarmScripts")
     @Scripts.Render("~/bundles/app/common")
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+    @RenderBody()
 </body>
 </html>

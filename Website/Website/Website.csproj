@@ -222,6 +222,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\area-alarm-bootstrap.css" />
     <Content Include="Content\app\area-alarm-indexlayout.css" />
     <Content Include="Content\app\area-alarm-index.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -262,15 +263,23 @@
     <Content Include="Images\FFW_Mauern_Logo.jpg" />
     <Content Include="Images\G5_Logo.png" />
     <Content Include="Images\helpicon.png" />
+    <Content Include="Areas\Display\Views\Alarm\PartialIdle.cshtml" />
+    <Content Include="Areas\Display\Views\Alarm\PartialAlarm.cshtml" />
     <None Include="Properties\PublishProfiles\Default.pubxml" />
     <None Include="Scripts\jquery-2.1.3-vsdoc.js" />
     <Content Include="Areas\Display\Scripts\index.js" />
+    <Content Include="Scripts\app\info.js" />
     <Content Include="Scripts\app\utils.js" />
+    <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\jintervals.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.simpleWeather.js" />
+    <Content Include="Scripts\jquery.stopwatch.js" />
+    <Content Include="Scripts\jquery.time.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

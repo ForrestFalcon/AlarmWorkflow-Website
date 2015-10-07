@@ -49,8 +49,26 @@ function addOsmMarker(location) {
     } else {
         osmMarker.setLatLng(location);
     }
+}
 
+function computeDistance(result) {
+    var myroute = result.routes[0];
 
+    if (myroute.legs.length > 0) {
+        var distance = myroute.legs[0].distance.value / 1000.0;
+        var duration = myroute.legs[0].duration.value / 60.0;
+        duration = Math.round(duration * 100) / 100;
+
+        var text = distance + " km (" + duration + " min)";
+        $("#totalDistance").text(text);
+    }
+}
+
+function ToJavaScriptDate(value) {
+    var pattern = /Date\(([^)]+)\)/;
+    var results = pattern.exec(value);
+    var dt = new Date(parseFloat(results[1]));
+    return dt;
 }
 
 function calcRoute(start, end) {
@@ -61,6 +79,7 @@ function calcRoute(start, end) {
     };
     directionsService.route(request, function (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
+            computeDistance(result);
             directionsDisplay.setDirections(result);
             var l = result.routes[0].overview_path.length;
             addressCoor = result.routes[0].overview_path[l - 1];
@@ -80,7 +99,6 @@ function calcRoute(start, end) {
 
 function reset() {
     $.get("/Display/Alarm/ResetLatestOperation", function (result) {
-
         if (result.success) {
             loadOperationData();
         } else {
@@ -89,18 +107,6 @@ function reset() {
 
     });
 }
-
-$(window).resize(function () {
-    if (currentOpId != -1) {
-        $('span.alarm').each(function () {
-            $(this).css('font-size', '1px');
-        });
-        $('span.alarm').each(function () {
-            utils.scale($(this).parent(), $(this));
-        });
-    }
-
-});
 
 function loadOperationData() {
     console.log("Loading Operation");
@@ -118,9 +124,7 @@ function loadOperationData() {
                 $("#paneIdle").hide();
                 if (currentOpId != result.op.Id) {
                     currentOpId = result.op.Id;
-                    $('span.alarm').each(function () {
-                        $(this).css('font-size', '1px');
-                    });
+
                     console.log("Got new Operation");
                     $("#opicture").text(result.op.Picture);
                     $("#ocomment").text(result.op.Comment);
@@ -130,7 +134,7 @@ function loadOperationData() {
                         oaddress += result.op.Einsatzort.Street + " ";
                     }
                     if (result.op.Einsatzort.StreetNumber != null) {
-                        oaddress += result.op.Einsatzort.StreetNumber + " ";
+                        oaddress += result.op.Einsatzort.StreetNumber + ", ";
                     }
                     if (result.op.Einsatzort.ZipCode != null) {
                         oaddress += result.op.Einsatzort.ZipCode + " ";
@@ -145,9 +149,11 @@ function loadOperationData() {
                     var okeywords = "Stichw&ouml;rter: ";
                     if (result.op.Keywords.Keyword != null) {
                         okeywords += result.op.Keywords.Keyword + " ";
+                        $("#okeyword").text(result.op.Keywords.Keyword);
                     }
                     if (result.op.Keywords.EmergencyKeyword != null) {
                         okeywords += result.op.Keywords.EmergencyKeyword + " ";
+                        $("#oekeyword").text(result.op.Keywords.EmergencyKeyword);
                     }
                     if (result.op.Keywords.B != null) {
                         okeywords += result.op.Keywords.B + " ";
@@ -174,7 +180,7 @@ function loadOperationData() {
                                 value = "<div class=\"oresource\">" + resource.Resource.FullName + "</div>";
                             } else {
                                 if (resource.Emk.IconFileName != null && resource.Emk.IconFileName.length !== 0) {
-                                    value = "<img class=\"oresource\" src=\"/Display/Alarm/GetResourceImage?id=" + encodeURIComponent(resource.Emk.Id) + "\" height=\"200\" alt=\"Fahrzeugbild\">";
+                                    value = "<img class=\"oresource\" src=\"/Display/Alarm/GetResourceImage?id=" + encodeURIComponent(resource.Emk.Id) + "\" height=\"90\" alt=\"Fahrzeugbild\">";
                                 } else {
                                     value = "<div class=\"oresource\">" + resource.Emk.DisplayName + "</div>";
                                 }
@@ -184,13 +190,20 @@ function loadOperationData() {
                         $("#orsc").html(orsc);
                     });
 
+                    //Stopwatch
+                    var startWatch = new Date().getTime() - ToJavaScriptDate(result.op.TimestampIncome).getTime();
+                    $('#stopwatch').stopwatch({ format: '{M} Min. und {s} Sek. seit Alarm', startTime: startWatch }).stopwatch('start');
 
                     $("#paneOperation").show();
+                    
+                    /**
                     setTimeout(function () {
                         $('span.alarm').each(function () {
                             utils.scale($(this).parent(), $(this));
                         });
                     }, 5);
+                    */
+
                     //GoogleMaps Stuff
                     google.maps.visualRefresh = true;
                     directionsDisplay = new google.maps.DirectionsRenderer();

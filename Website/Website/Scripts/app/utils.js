@@ -1,4 +1,5 @@
-﻿(function (jQ) {
+﻿/**
+(function (jQ) {
 
     window.utils = {};
 
@@ -25,3 +26,4 @@
     };
 
 })($);
+*/

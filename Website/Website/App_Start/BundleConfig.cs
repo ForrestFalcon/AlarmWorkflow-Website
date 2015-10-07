@@ -37,6 +37,13 @@ namespace AlarmWorkflow.Website.Reports
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/alarmScripts")
+                .Include("~/Scripts/date.format.js")
+                .Include("~/Scripts/jintervals.js")
+                .Include("~/Scripts/jquery.simpleWeather.js")
+                .Include("~/Scripts/jquery.stopwatch.js")
+                .Include("~/Scripts/jquery.time.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -54,7 +61,8 @@ namespace AlarmWorkflow.Website.Reports
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app/common").Include(
-                        "~/Scripts/app/utils.js"));
+                        "~/Scripts/app/utils.js").Include(
+                        "~/Scripts/app/info.js"));
         }
     }
 }
