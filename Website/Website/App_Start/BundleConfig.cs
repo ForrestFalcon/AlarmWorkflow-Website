@@ -61,8 +61,7 @@ namespace AlarmWorkflow.Website.Reports
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app/common").Include(
-                        "~/Scripts/app/utils.js").Include(
-                        "~/Scripts/app/info.js"));
+                        "~/Scripts/app/utils.js"));
 
             /**
              * Bootstrap files

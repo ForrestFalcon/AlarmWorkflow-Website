@@ -191,8 +191,15 @@ function loadOperationData() {
                     });
 
                     //Stopwatch
+                    var watch = $('#stopwatch');
+
                     var startWatch = new Date().getTime() - ToJavaScriptDate(result.op.TimestampIncome).getTime();
-                    $('#stopwatch').stopwatch({ format: '{M} Min. und {s} Sek. seit Alarm', startTime: startWatch }).stopwatch('start');
+                    try {
+                        watch.stopwatch('destroy');
+                    } catch(err) {}
+                    
+                    watch.stopwatch({ format: '{M} Min. und {s} Sek. seit Alarm', startTime: startWatch });
+                    watch.stopwatch('start');
 
                     $("#paneOperation").show();
                     
