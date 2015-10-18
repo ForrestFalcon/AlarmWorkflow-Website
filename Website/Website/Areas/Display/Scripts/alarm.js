@@ -218,6 +218,7 @@ function loadOperationData() {
                     firstTime = true;
                     var dest = new google.maps.LatLng(result.op.Einsatzort.GeoLatitude.replace(',', '.'), result.op.Einsatzort.GeoLongitude.replace(',', '.'));
 
+                    google.maps.event.trigger(map, 'resize');
 
                     if (!showRoute) {
                         addGoogleMarker(dest);
