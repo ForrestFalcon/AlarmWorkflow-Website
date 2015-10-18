@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with AlarmWorkflow.  If not, see <http://www.gnu.org/licenses/>.
 
+using AlarmWorkflow.Website.Reports.Models;
 using System.Web.Mvc;
 
 namespace AlarmWorkflow.Website.Reports.Controllers
@@ -35,6 +36,34 @@ namespace AlarmWorkflow.Website.Reports.Controllers
         public ActionResult About()
         {
             return View();
+        }
+
+        /// <summary>
+        /// GET: /Settings
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Settings()
+        {
+            SettingsData data = new SettingsData();
+            ViewBag.Save = false;
+            return View(data);
+        }
+
+        /// <summary>
+        /// Post: /Settings
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Settings(SettingsData data)
+        {
+            if (ModelState.IsValid)
+            {
+                data.Save();
+            }
+
+            ViewBag.Save = true;
+
+            return View(data);
         }
     }
 }

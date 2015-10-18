@@ -28,6 +28,7 @@ using AlarmWorkflow.Shared.Diagnostics;
 using AlarmWorkflow.Website.Reports.Areas.Display.Models;
 using AlarmWorkflow.Website.Reports.Filters;
 using Microsoft.Win32;
+using AlarmWorkflow.Website.Reports.Models;
 
 namespace AlarmWorkflow.Website.Reports.Areas.Display.Controllers
 {
@@ -63,7 +64,8 @@ namespace AlarmWorkflow.Website.Reports.Areas.Display.Controllers
             {
                 using (var service = ServiceFactory.GetCallbackServiceWrapper<IOperationService>(new OperationServiceCallback()))
                 {
-                    IList<int> ids = service.Instance.GetOperationIds(WebsiteConfiguration.Instance.MaxAge, WebsiteConfiguration.Instance.NonAcknowledgedOnly, 1);
+                    SettingsData settings = new SettingsData();
+                    IList<int> ids = service.Instance.GetOperationIds(settings.MaxAge, settings.NonAcknowledgedOnly, 1);
                     if (ids.Any())
                     {
                         Operation item = service.Instance.GetOperationById(ids.Single());

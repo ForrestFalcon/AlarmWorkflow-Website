@@ -2,7 +2,7 @@
     Layout = "IndexLayout.cshtml";
     ViewBag.Title = "Alarmanzeige";
 
-    var config = AlarmWorkflow.Website.Reports.Areas.Display.Models.WebsiteConfiguration.Instance;
+    var config = new AlarmWorkflow.Website.Reports.Models.SettingsData();
 }
 
 <!-- Stylesheets -->
@@ -62,7 +62,7 @@
         // Declare global variable for script usage.
         var config = {
             home: "@(config.Home)",
-            mapTypeGoogle: @(config.MapTypeGoogle),
+            mapTypeGoogle: @(config.GetGoogleMapType()),
             showRoute: @(config.Route.ToString().ToLower()),
             updateIntervalMs: @(config.UpdateIntervalMs),
             useTilt: @(config.Tilt.ToString().ToLower()),
