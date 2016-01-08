@@ -1,5 +1,5 @@
 ﻿html, body {
-    font-size: 40pt;
+    font-size: 32pt;
     line-height: 1.2;
     overflow-x:	hidden;
 
@@ -13,10 +13,16 @@
     Info
 */
 .header {
-    font-size: 37pt;
+    font-size: 36pt;
+}
+
+#time {
+	font-size: 58pt;
+	font-weight: bold;
 }
 
 .jumbotron {
+	margin-top: 20px;
     text-align: center;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
@@ -25,11 +31,11 @@
     -webkit-box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.5);
     box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.5);
-    font-size: 40pt;
+    font-size: 32pt;
 }
 
 .cal-content {
-    font-size: 22pt;
+    font-size: 18pt;
 }
 
 .infoText {
@@ -37,7 +43,7 @@
 }
 
 .weatherText {
-    font-size: 22pt;
+    font-size: 18pt;
 }
 
 .weatherForecast {

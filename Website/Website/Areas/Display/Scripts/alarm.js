@@ -32,6 +32,13 @@ function goToLatLng(dest) {
     });
 }
 
+function minTommss(minutes){
+ var sign = minutes < 0 ? "-" : "";
+ var min = Math.floor(Math.abs(minutes))
+ var sec = Math.floor((Math.abs(minutes) * 60) % 60);
+ return sign + (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+}
+
 function addGoogleMarker(location) {
     if (googleMarker == null) {
         googleMarker = new google.maps.Marker({
@@ -58,8 +65,10 @@ function computeDistance(result) {
         var distance = myroute.legs[0].distance.value / 1000.0;
         var duration = myroute.legs[0].duration.value / 60.0;
         duration = Math.round(duration * 100) / 100;
-
-        var text = distance + " km (" + duration + " min)";
+		distance = Math.round(distance * 100) / 100;
+		
+		var tmpDist = distance.toString().replace('.', ',');
+        var text = tmpDist + " km (" + minTommss(duration) + " min)";
         $("#totalDistance").text(text);
     }
 }
@@ -127,7 +136,10 @@ function loadOperationData() {
 
                     console.log("Got new Operation");
                     $("#opicture").text(result.op.Picture);
-                    $("#ocomment").text(result.op.Comment);
+					if(result.op.Comment == undefined)
+					   $("#ocomment").text("");
+					else
+						$("#ocomment").text(result.op.Comment);
 
                     var oaddress = "";
                     if (result.op.Einsatzort.Street != null) {
@@ -198,7 +210,8 @@ function loadOperationData() {
                         watch.stopwatch('destroy');
                     } catch(err) {}
                     
-                    watch.stopwatch({ format: '{M} Min. und {s} Sek. seit Alarm', startTime: startWatch });
+                    //watch.stopwatch({ format: '{M} Min. und {ss} Sek. seit Alarm', startTime: startWatch });
+					watch.stopwatch({ format: '{M}:{ss} min seit Alarmierung', startTime: startWatch });
                     watch.stopwatch('start');
 
                     $("#paneOperation").show();
@@ -216,7 +229,7 @@ function loadOperationData() {
                     directionsDisplay.setDirections({ routes: [] });
                     google.maps.event.clearListeners(map, 'tilesloaded');
                     firstTime = true;
-                    var dest = new google.maps.LatLng(result.op.Einsatzort.GeoLatitude.replace(',', '.'), result.op.Einsatzort.GeoLongitude.replace(',', '.'));
+                    var dest = new google.maps.LatLng(result.op.Einsatzort.GeoLatitudeString, result.op.Einsatzort.GeoLongitudeString);
 
                     google.maps.event.trigger(map, 'resize');
 
@@ -229,8 +242,8 @@ function loadOperationData() {
                         calcRoute(home, dest);
                     }
 
-                    osm.setView([result.op.Einsatzort.GeoLatitude.replace(',', '.'), result.op.Einsatzort.GeoLongitude.replace(',', '.')], config.zoomLevelOSM);
-                    addOsmMarker([result.op.Einsatzort.GeoLatitude.replace(',', '.'), result.op.Einsatzort.GeoLongitude.replace(',', '.')]);
+                    osm.setView([result.op.Einsatzort.GeoLatitudeString, result.op.Einsatzort.GeoLongitudeString], config.zoomLevelOSM);
+                    addOsmMarker([result.op.Einsatzort.GeoLatitudeString, result.op.Einsatzort.GeoLongitudeString]);
                 }
             }
         } else {
