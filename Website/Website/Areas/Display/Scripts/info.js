@@ -1,4 +1,14 @@
-﻿function getWeather() {
+﻿var dayArray = {
+    "Fri": "Freitag",
+    "Sat": "Samstag",
+    "Sun": "Sonntag",
+    "Mon": "Montag",
+    "Tue": "Dienstag",
+    "Wed": "Mittwoch",
+    "Thu": "Donnerstag"
+};
+
+function getWeather() {
     $.simpleWeather({
         location: '85419',
         unit: 'c',
@@ -24,7 +34,7 @@
 
 function showWeatherDay(forecast) {
     html = '<div class="col-md-4 weatherForecast">';
-    html += forecast.day + '<br />';
+    html += dayArray[forecast.day] + '<br />';
     html += '<img src="' + forecast.image + '" /><br />';
     html += '<span class="weatherText">' + forecast.text + '</span><br />';
     html += forecast.low + ' / ' + forecast.high + ' °C';
