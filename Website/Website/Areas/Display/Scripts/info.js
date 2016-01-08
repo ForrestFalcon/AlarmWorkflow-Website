@@ -1,14 +1,4 @@
-﻿var dayArray = {
-    "Fri": "Freitag",
-    "Sat": "Samstag",
-    "Sun": "Sonntag",
-    "Mon": "Montag",
-    "Tue": "Dienstag",
-    "Wed": "Mittwoch",
-    "Thu": "Donnerstag"
-};
-
-function getWeather() {
+﻿function getWeather() {
     $.simpleWeather({
         location: '85419',
         unit: 'c',
@@ -32,11 +22,19 @@ function getWeather() {
     });
 }
 
+function getWeatherTranslationText(text) {
+    var ret = weatherTranslationArray[text];
+    if (!ret)
+        return text;
+    else
+        return ret;
+}
+
 function showWeatherDay(forecast) {
     html = '<div class="col-md-4 weatherForecast">';
     html += dayArray[forecast.day] + '<br />';
     html += '<img src="' + forecast.image + '" /><br />';
-    html += '<span class="weatherText">' + forecast.text + '</span><br />';
+    html += '<span class="weatherText">' + getWeatherTranslationText(forecast.text) + '</span><br />';
     html += forecast.low + ' / ' + forecast.high + ' °C';
     html += '</div>';
     return html;
@@ -81,3 +79,82 @@ $(document).ready(function () {
     setInterval(getCalendar, 600000); //Update the calendar every 10 minutes.
     setInterval(getWeather, 600000); //Update the Weather every 10 minutes.
 });
+
+var dayArray = {
+    "Fri": "Freitag",
+    "Sat": "Samstag",
+    "Sun": "Sonntag",
+    "Mon": "Montag",
+    "Tue": "Dienstag",
+    "Wed": "Mittwoch",
+    "Thu": "Donnerstag"
+};
+
+var weatherTranslationArray = {
+    "Severe thunderstorms": "Gewitter",
+    "Thunderstorms": "Gewitter",
+    "Mixed rain and snow": "Schneeregen",
+    "Mixed rain and sleet": "Regen und Graupel",
+    "Mixed snow and sleet": "Schnee und Graupel",
+    "Freezing drizzle": "Nieselregen",
+    "Drizzle": "Nieselregen",
+    "Freezing rain": "Kalter Regen",
+    "Showers": "Schauer",
+    "Snow flurries": "Schneetreiben",
+    "Light snow showers": "Schneeschauer",
+    "Blowing snow": "Schneetreiben",
+    "Snow": "Schnee",
+    "Hail": "Hagel",
+    "Sleet": "Schneeregen",
+    "Dust": "Staub",
+    "Foggy": "Neblig",
+    "Fog": "Nebel",
+    "AM Fog\/PM Sun": "Nebel \/ Sonne",
+    "Mist": "Nebel",
+    "Haze": "Dunst",
+    "Smoky": "Verraucht",
+    "Blustery": "Stürmisch",
+    "Windy": "Windig",
+    "Cold": "Kalt",
+    "Cloudy": "Bewölkt",
+    "Partly Cloudy": "Teilweise Bewölkt",
+    "Clear (night)": "Klare Nacht",
+    "Sunny": "Sonnig",
+    "Fair (night)": "Schöne Nacht",
+    "Fair (day)": "Schöner Tag",
+    "Mixed rain and hail": "Regen und Hagel",
+    "Hot": "Heiß",
+    "Isolated thunderstorms": "vereinzelte Gewitter",
+    "Scattered thunderstorms": "vereinzelte Gewitter",
+    "Scattered showers": "vereinzelte Schauer",
+    "Heavy snow": "schwerer Schnee",
+    "Scattered snow showers": "vereinzelte Schneeschauer",
+    "Thundershowers": "Gewitter",
+    "Snow showers": "Schneeschauer",
+    "Isolated thundershowers": "vereinzelte Gewitterschauer",
+    "Not available": null,
+    "Mostly Clear": "Großteils Klar",
+    "Mostly Sunny": "Meistens Sonnig",
+    "Mostly Cloudy": "Großteils Bewölkt",
+    "PM Showers": "Regen am Abend",
+    "AM Showers": "Regen am Morgen",
+    "Rain": "Regen",
+    "Heavy Rain": "Platzregen",
+    "Light Rain": "leichter Regen",
+    "Rain Shower": "Regen- schauer",
+    "Light Rain Early": "vereinzelt Regen",
+    "Clear": "Klar",
+    "PM Thunderstorms": "Gewitter",
+    "Cloudy\/Wind": "Bewölkt\/Wind",
+    "Mostly Cloudy\/Wind": "Bewölkt\/Wind",
+    "Thunderstorms Early": "Gewitter",
+    "Isolated Thunderstorms": "vereinzelte Gewitter",
+    "Light Drizzle": "leichter Niesel",
+    "Showers Late": null,
+    "AM Light Rain": "leichter Regen",
+    "Scattered Thunderstorms": "vereinzelt Donner",
+    "Light Rain Shower": "leichte Schauer",
+    "Showers Early": null,
+    "PM Light Rain": "leichter Regen",
+    "PM Drizzle": "Nieselregen"
+}
